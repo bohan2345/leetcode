@@ -9,14 +9,13 @@ public class BestTimeStock {
 		for (int i = 0; i < prices.length - 1; i++) {
 			profits[i] = prices[i + 1] - prices[i];
 		}
-		int tempProfit = 0, lastMaxProfit = 0;
+		int lastMaxProfit = 0;
 		for (int j = 0; j < profits.length; j++) {
 			profit = profit + profits[j];
 			if (profit < 0) {
 				profit = 0;
 			}
 			if (profits[j] < 0) {
-				tempProfit = profit - profits[j];
 			}
 			if (profit > lastMaxProfit) {
 				lastMaxProfit = profit;

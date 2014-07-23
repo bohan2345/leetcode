@@ -25,7 +25,7 @@ public class SearchRotatedArray {
 					return result;
 				}
 			}
-		} else {
+		} else if (A[mid] < A[left]) {
 			if (target < A[mid]) {
 				return search(A, target, left, mid - 1);
 			} else if (target == A[mid]) {
@@ -38,6 +38,13 @@ public class SearchRotatedArray {
 					return result;
 				}
 			}
+		} else {
+			if (target == A[mid]) {
+				return mid;
+			} else if (mid + 1 < A.length && target == A[mid + 1]) {
+				return mid + 1;
+			} else
+				return -1;
 		}
 		// if (A[mid] > A[right]) {
 		// } else {

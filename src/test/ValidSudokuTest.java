@@ -15,7 +15,8 @@ public class ValidSudokuTest {
 			board[y][0] = c;
 		}
 		boolean s = test.isValidSudoku(board);
-		System.out.println(board[0][0] == 0);
+		//System.out.println(board[0][0] == 0);
 		System.out.println(s);
 	}
+
 }

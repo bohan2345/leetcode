@@ -6,7 +6,7 @@ public class ValidSudoku {
 			return false;
 		for (int y = 0; y < board.length; y++) {
 			for (int x = 0; x < board.length; x++) {
-				if (board[x][y] == 0) {
+				if (board[y][x] == '.') {
 					continue;
 				}
 				if (isValidInRow(x, y, board) && isValidInColumn(x, y, board) && isValidInRegion(x, y, board)) {
@@ -21,7 +21,7 @@ public class ValidSudoku {
 
 	public boolean isValidInRow(int x, int y, char[][] board) {
 		for (int i = x + 1; i < board.length; i++) {
-			if (board[y][i] == 0) {
+			if (board[y][i] == '.') {
 				continue;
 			}
 			if (board[y][x] == board[y][i]) {
@@ -33,7 +33,7 @@ public class ValidSudoku {
 
 	public boolean isValidInColumn(int x, int y, char[][] board) {
 		for (int i = y + 1; i < board.length; i++) {
-			if (board[i][x] == 0) {
+			if (board[i][x] == '.') {
 				continue;
 			}
 			if (board[y][x] == board[i][x]) {
@@ -51,7 +51,7 @@ public class ValidSudoku {
 				if (j == x && i == y) {
 					continue;
 				}
-				if (board[i][j] == 0) {
+				if (board[i][j] == '.') {
 					continue;
 				}
 				if (board[y][x] == board[i][j]) {

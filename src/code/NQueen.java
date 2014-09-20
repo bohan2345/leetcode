@@ -19,7 +19,6 @@ public class NQueen {
 			board[i] = sb.toString();
 		}
 		result.add(board);
-
 		return bfs(result, n);
 	}
 

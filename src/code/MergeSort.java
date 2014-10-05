@@ -1,23 +1,35 @@
 package code;
 
 public class MergeSort {
-	public void merge(int A[], int m, int B[], int n) {
-		int i=m,j=n;
-		while(i>0&&j>0){
-			if(A[i-1]>=B[j-1]){
-				A[i+j-1]=A[i-1];
-				i--;
-			}else{
-				A[i+j-1]=B[j-1];
-				j--;
-			}
+	public void mergeSort(int[] A) {
+		int n = A.length;
+		int[] B = new int[n];
+		mergeSort(A, 0, n - 1, B);
+	}
+
+	public void mergeSort(int[] A, int left, int right, int[] B) {
+		if (left >= right) {
+			return;
 		}
-		if(i<=0){
-			for(int x = j;x>0;x--){
-				A[x-1]=B[x-1];
+		int mid = (left + right) / 2;
+		mergeSort(A, left, mid, B);
+		mergeSort(A, mid + 1, right, B);
+		merge(A, left, mid, right, B);
+		for (int i = left; i <= right; i++) {
+			A[i] = B[i];
+		}
+	}
+
+	public void merge(int A[], int left, int mid, int right, int B[]) {
+		int x = left, y = mid + 1;
+		for (int i = left; i <= right; i++) {
+			if (y > right || A[x] <= A[y] && x <= mid) {
+				B[i] = A[x];
+				x++;
+			} else {
+				B[i] = A[y];
+				y++;
 			}
-		}else{
-			
 		}
 	}
 }

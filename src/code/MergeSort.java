@@ -1,10 +1,17 @@
 package code;
 
+import test.ListNode;
+
 public class MergeSort {
 	public void mergeSort(int[] A) {
 		int n = A.length;
 		int[] B = new int[n];
-		mergeSort(A, 0, n - 1, B);
+		// mergeSort(A, 0, n - 1, B);
+		bottomUpSort(A, B);
+	}
+
+	public void mergeSort(ListNode A) {
+		// TODO: need implement
 	}
 
 	public void mergeSort(int[] A, int left, int right, int[] B) {
@@ -29,6 +36,19 @@ public class MergeSort {
 			} else {
 				B[i] = A[y];
 				y++;
+			}
+		}
+	}
+
+	public void bottomUpSort(int[] A, int[] B) {
+		for (int width = 1; width < A.length; width = width * 2) {
+			for (int i = 0; i < A.length; i = i + width * 2) {
+				int mid = Math.min(i + width, A.length);
+				int end = Math.min(i + 2 * width, A.length);
+				merge(A, i, mid - 1, end - 1, B);
+			}
+			for (int i = 0; i < A.length; i++) {
+				A[i] = B[i];
 			}
 		}
 	}

@@ -1,42 +1,16 @@
 package code;
 
+import test.ListNode;
 
 public class QuickSort {
 	public void quickSort(int[] arr) {
 		quickSort(arr, 0, arr.length - 1);
 	}
 
-	// public void quickSort(int[] arr, int first, int last) {
-	// // if (last < first)
-	// // return;
-	// int index = partition(arr, first, last);
-	// if (first < index - 1)
-	// quickSort(arr, first, index - 1);
-	// if (index < last)
-	// quickSort(arr, index, last);
-	// }
-	//
-	// private int partition(int arr[], int left, int right) {
-	// int i = left, j = right;
-	// int tmp;
-	// int pivot = arr[(i + j) / 2];
-	//
-	// while (i <= j) {
-	// while (arr[i] < pivot)
-	// i++;
-	// while (arr[j] > pivot)
-	// j--;
-	// if (i <= j) {
-	// tmp = arr[i];
-	// arr[i] = arr[j];
-	// arr[j] = tmp;
-	// i++;
-	// j--;
-	// }
-	// }
-	//
-	// return i;
-	// }
+	public void quickSort(ListNode head) {
+		// TODO: need implement
+	}
+
 	public void quickSort(int[] num, int left, int right) {
 		int mid = patition(num, left, right);
 		if (left < mid - 1) {
@@ -48,20 +22,22 @@ public class QuickSort {
 	}
 
 	public int patition(int[] num, int left, int right) {
-		// Selecting a pivot element is also complicated by the existence of integer overflow. 
+		// Selecting a pivot element is also complicated by the existence of integer overflow.
 		// If the boundary indices of the subarray being sorted are sufficiently large, the naïve expression for the
-		// middle index, (left + right)/2, will cause overflow and provide an invalid pivot index. 
+		// middle index, (left + right)/2, will cause overflow and provide an invalid pivot index.
 		// This can be overcome by using, for example, left + (right-left)/2 to index the middle element
 		int mid = left + (right - left) / 2;
 		int val = num[mid];
 
 		while (left <= right) {
+
 			while (num[left] < val) {
 				left++;
 			}
 			while (num[right] > val) {
 				right--;
 			}
+
 			if (left <= right) {
 				int temp = num[left];
 				num[left] = num[right];

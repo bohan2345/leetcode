@@ -9,9 +9,20 @@ public class MergeSort {
 		// mergeSort(A, 0, n - 1, B);
 		bottomUpSort(A, B);
 	}
-
-	public void mergeSort(ListNode A) {
-		// TODO: need implement
+	
+	public ListNode mergeSort(ListNode A, int len) {
+		if (len == 1) {
+			A.next = null;
+			return A;
+		}
+		ListNode left = A;
+		for (int i = 0; i < len / 2; i++) {
+			A = A.next;
+		}
+		ListNode right = A;
+		left = mergeSort(left, len / 2);
+		right = mergeSort(right, len - len / 2);
+		return merge(left, right);
 	}
 
 	public void mergeSort(int[] A, int left, int right, int[] B) {
@@ -25,6 +36,36 @@ public class MergeSort {
 		for (int i = left; i <= right; i++) {
 			A[i] = B[i];
 		}
+	}
+
+	public ListNode merge(ListNode left, ListNode right) {
+		ListNode last;
+		if (left.val > right.val) {
+			last = right;
+			right = right.next;
+		} else {
+			last = left;
+			left = left.next;
+		}
+		ListNode head = last;
+		while (left != null && right != null) {
+			if (left.val > right.val) {
+				last.next = right;
+				right = right.next;
+
+			} else {
+				last.next = left;
+				left = left.next;
+			}
+			last = last.next;
+		}
+		if (left == null) {
+			last.next = right;
+		}
+		if (right == null) {
+			last.next = left;
+		}
+		return head;
 	}
 
 	public void merge(int A[], int left, int mid, int right, int B[]) {

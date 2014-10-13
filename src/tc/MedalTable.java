@@ -1,6 +1,7 @@
 package tc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MedalTable {
@@ -11,6 +12,7 @@ public class MedalTable {
 			boolean a = false, b = false, c = false;
 			for (int j = 0; j < countries.size(); j++) {
 				Country country = countries.get(j);
+
 				if (country.equals(result[0])) {
 					country.gold++;
 					a = true;
@@ -39,7 +41,9 @@ public class MedalTable {
 		}
 		// bubbleSortList(countries);
 		// selectionSort(countries);
-		insertionSort(countries);
+		// insertionSort(countries);
+
+		Collections.sort(countries);
 		String[] medalTable = new String[countries.size()];
 		for (int i = 0; i < medalTable.length; i++) {
 			medalTable[i] = countries.get(i).toString();
@@ -54,7 +58,7 @@ public class MedalTable {
 		while (swap) {
 			swap = false;
 			for (int i = 0; i < n - 1; i++) {
-				if (countries.get(i + 1).isGreaterThan(countries.get(i))) {
+				if (countries.get(i + 1).compareTo(countries.get(i)) > 0) {
 					Country temp = countries.get(i);
 					countries.set(i, countries.get(i + 1));
 					countries.set(i + 1, temp);
@@ -69,7 +73,7 @@ public class MedalTable {
 		for (int i = 0; i < countries.size(); i++) {
 			max = i;
 			for (int j = i + 1; j < countries.size(); j++) {
-				if (countries.get(j).isGreaterThan(countries.get(max))) {
+				if (countries.get(j).compareTo(countries.get(max)) > 0) {
 					max = j;
 				}
 			}
@@ -85,7 +89,7 @@ public class MedalTable {
 		for (int i = 0; i < countries.size(); i++) {
 			Country temp = countries.get(i);
 			for (int j = i - 1; j >= 0; j--) {
-				if (temp.isGreaterThan(countries.get(j))) {
+				if (temp.compareTo(countries.get(j)) > 0) {
 					countries.set(j + 1, countries.get(j));
 					if (j == 0) {
 						countries.set(0, temp);
@@ -98,7 +102,7 @@ public class MedalTable {
 		}
 	}
 
-	class Country {
+	class Country implements Comparable<Country> {
 		public String name;
 		public int gold;
 		public int silver;
@@ -118,8 +122,15 @@ public class MedalTable {
 			return sb.toString();
 		}
 
-		public boolean equals(Country country) {
-			if (this.name.equals(country.name)) {
+		@Override
+		public boolean equals(Object country) {
+			Country cou = null;
+			if (country instanceof Country) {
+				cou = (Country) country;
+			} else {
+				return false;
+			}
+			if (this.name.equals(cou.name)) {
 				return true;
 			} else {
 				return false;
@@ -134,6 +145,16 @@ public class MedalTable {
 			}
 		}
 
+		@Override
+		public int hashCode() {
+			int hashCode = 0;
+			for (int i = 0; i < this.name.length(); i++) {
+				hashCode += (int) this.name.charAt(i);
+			}
+			return hashCode;
+		}
+
+		@Deprecated
 		public boolean isGreaterThan(Country country) {
 			if (this.gold > country.gold) {
 				return true;
@@ -152,6 +173,29 @@ public class MedalTable {
 				}
 			}
 			return false;
+		}
+
+		@Override
+		public int compareTo(Country country) {
+			if (this.gold > country.gold) {
+				return -1;
+			} else if (this.gold == country.gold) {
+				if (this.silver > country.silver) {
+					return -1;
+				} else if (this.silver == country.silver) {
+					if (this.bronze > country.bronze) {
+						return -1;
+					} else if (this.bronze == country.bronze) {
+						int n = this.name.compareToIgnoreCase(country.name);
+						if (n < 0) {
+							return -1;
+						} else if (n == 0) {
+							return 0;
+						}
+					}
+				}
+			}
+			return 1;
 		}
 	}
 }

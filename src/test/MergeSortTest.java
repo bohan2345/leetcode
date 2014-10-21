@@ -1,6 +1,7 @@
 package test;
 
 import code.MergeSort;
+import code.SortList;
 
 public class MergeSortTest {
 	public static void main(String[] args) {
@@ -21,9 +22,10 @@ public class MergeSortTest {
 			head = head.next;
 		}
 
-		int[] a = { 5, 2, 4, 3 };
+		int[] a = { 2, 1 };
 		ListNode aa = node.createListNodes(a);
-		head = test.mergeSort(aa, 4);
+		SortList sl = new SortList();
+		head = sl.mergeSort(aa, 2);
 		System.out.println("");
 		while (head != null) {
 			System.out.print(head.val);

@@ -52,7 +52,6 @@ public class MergeSort {
 			if (left.val > right.val) {
 				last.next = right;
 				right = right.next;
-
 			} else {
 				last.next = left;
 				left = left.next;

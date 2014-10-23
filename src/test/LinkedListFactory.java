@@ -20,4 +20,23 @@ public class LinkedListFactory {
 		}
 		return sb.toString();
 	}
+
+	public static ListNode reverse(ListNode head) {
+		if (head == null) {
+			return null;
+		}
+		ListNode begin = new ListNode(0);
+		begin.next = head;
+		ListNode node = head, lastNode = node;
+		while (node.next != null) {
+			// remove node.next
+			ListNode tmp = node.next;
+			node.next = tmp.next;
+			// insert it after begin
+			tmp.next = lastNode;
+			begin.next = tmp;
+			lastNode = tmp;
+		}
+		return begin.next;
+	}
 }

@@ -9,5 +9,6 @@ public class ReorderListTest {
 		ListNode head = LinkedListFactory.createLinkedList(A);
 		test.reorderList(head);
 		System.out.println(LinkedListFactory.toString(head));
+		System.out.println(LinkedListFactory.reverse(head).toString());
 	}
 }

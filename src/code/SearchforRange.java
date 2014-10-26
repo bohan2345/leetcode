@@ -2,55 +2,37 @@ package code;
 
 public class SearchforRange {
 	public int[] searchRange(int[] A, int target) {
-		int[] range = { -1, -1 };
-		if (A == null || A.length == 0) {
-			return range;
+		int[] result = { -1, -1 };
+		int i = binarySearch(A, target);
+		if (i == -1) {
+			return result;
 		}
-		int t = binarySearch(A, 0, A.length - 1, target);
-		if (t == -1) {
-			return range;
-		} else {
-			int i = t, j = t;
-			while (true) {
-				if (i > A.length - 1) {
-					i--;
-					break;
-				}
-				if (A[i] == A[t]) {
-					i++;
-				} else {
-					i--;
-					break;
-				}
-			}
-			while (true) {
-				if (j < 0) {
-					j++;
-					break;
-				}
-				if (A[j] == A[t]) {
-					j--;
-				} else {
-					j++;
-					break;
-				}
-			}
-			range[0] = j;
-			range[1] = i;
-			return range;
+		int left = i, right = i;
+		while (left >= 0 && A[left] == A[i]) {
+			left--;
 		}
+		result[0] = left + 1;
+		while (right < A.length && A[right] == A[i]) {
+			right++;
+		}
+		result[1] = right - 1;
+		return result;
 	}
 
-	public int binarySearch(int[] A, int left, int right, int target) {
-		if (left > right) {
-			return -1;
+	public int binarySearch(int[] A, int target) {
+		int left = 0, right = A.length - 1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if (target == A[mid]) {
+				return mid;
+			} else {
+				if (target > A[mid]) {
+					left = mid + 1;
+				} else {
+					right = mid - 1;
+				}
+			}
 		}
-		int mid = (left + right) / 2;
-		if (A[mid] > target) {
-			return binarySearch(A, left, mid - 1, target);
-		} else if (A[mid] < target) {
-			return binarySearch(A, mid + 1, right, target);
-		} else
-			return mid;
+		return -1;
 	}
 }

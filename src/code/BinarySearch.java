@@ -13,4 +13,21 @@ public class BinarySearch {
 		} else
 			return mid;
 	}
+
+	public int binarySearch(int[] A, int target) {
+		int left = 0, right = A.length - 1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if (target == A[mid]) {
+				return mid;
+			} else {
+				if (target > A[mid]) {
+					left = mid + 1;
+				} else {
+					right = mid - 1;
+				}
+			}
+		}
+		return -1;
+	}
 }

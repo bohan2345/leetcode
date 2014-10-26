@@ -5,23 +5,22 @@ public class SortedArrayDeduplicatesII {
 		if (A.length <= 2) {
 			return A.length;
 		}
-		int i = 1, j = 1, count = 1, last = A[0];
-		while (i < A.length) {
-			int cur = A[i];
-			if (cur == last) {
+		int count = 1;
+		int i = 1, j = 1;
+		while (j < A.length) {
+			if (A[j] == A[j - 1]) {
 				count++;
 				if (count <= 2) {
-					A[j] = A[i];
-					j++;
+					A[i] = A[j];
+					i++;
 				}
 			} else {
-				A[j] = A[i];
-				j++;
 				count = 1;
+				A[i] = A[j];
+				i++;
 			}
-			last = cur;
-			i++;
+			j++;
 		}
-		return j;
+		return i;
 	}
 }

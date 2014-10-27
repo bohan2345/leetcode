@@ -7,38 +7,37 @@ import test.TreeNode;
 
 public class SymmetricTree {
 	public boolean isSymmetric(TreeNode root) {
-		if (root == null)
+		if (root == null || (root.left == null && root.right == null)) {
 			return true;
-		if (root.left == null && root.right == null)
-			return true;
-		if (root.left != null && root.right != null) {
-			Queue<TreeNode> nodes1 = new LinkedList<TreeNode>();
-			Queue<TreeNode> nodes2 = new LinkedList<TreeNode>();
-			nodes1.add(root.left);
-			nodes2.add(root.right);
-			while (nodes1.size() > 0 && nodes2.size() > 0) {
-				TreeNode node1 = nodes1.poll();
-				TreeNode node2 = nodes2.poll();
-				if (node1.val != node2.val) {
-					return false;
-				}
-				if (node1.left != null && node2.right != null) {
-					nodes1.add(node1.left);
-					nodes2.add(node2.right);
-				} else if (node1.left == null && node2.right == null) {
-
-				} else
-					return false;
-				if (node1.right != null && node2.left != null) {
-					nodes1.add(node1.right);
-					nodes2.add(node2.left);
-				} else if (node1.right == null && node2.left == null) {
-
-				} else
-					return false;
-			}
-		} else
+		}
+		if ((root.left == null && root.right != null) || (root.left != null && root.right == null)) {
 			return false;
+		}
+		Queue<TreeNode> leftNodes = new LinkedList<>();
+		Queue<TreeNode> rightNodes = new LinkedList<>();
+		leftNodes.offer(root.left);
+		rightNodes.offer(root.right);
+		while (!leftNodes.isEmpty() && !rightNodes.isEmpty()) {
+			TreeNode left = leftNodes.poll();
+			TreeNode right = rightNodes.poll();
+			if (left.val != right.val) {
+				return false;
+			}
+			if (left.left != null && right.right != null) {
+				leftNodes.offer(left.left);
+				rightNodes.offer(right.right);
+			} else if (left.left == null && right.right == null) {
+			} else {
+				return false;
+			}
+			if (left.right != null && right.left != null) {
+				leftNodes.offer(left.right);
+				rightNodes.offer(right.left);
+			} else if (left.right == null && right.left == null) {
+			} else {
+				return false;
+			}
+		}
 		return true;
 	}
 }

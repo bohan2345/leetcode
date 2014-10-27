@@ -2,7 +2,7 @@ package tc;
 
 public class MS {
 	public static void main(String[] args) {
-		int[][] A = { { 1, 1, 1, 1 }, { 0, 1, 0, 1 }, { 1, 1, 1, 1 }, { 0, 0, 1, 1 } };
+		int[][] A = { { 0, 0, 0, 0 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } };
 		MS test = new MS();
 		test.removeAllMarked(A);
 		System.out.println(A);
@@ -25,9 +25,10 @@ public class MS {
 					i++;
 					j++;
 				}
+			} else {
+				row++;
+				above++;
 			}
-			row++;
-			above++;
 		}
 	}
 

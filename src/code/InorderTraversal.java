@@ -9,22 +9,20 @@ import java.util.Stack;
 import test.inorderTraversalTest.TreeNode;
 
 public class InorderTraversal {
-	// public ArrayList<Integer> inorderTraversal(TreeNode root) {
-	// ArrayList<Integer> vals = new ArrayList<Integer>();
-	// if (root != null) {
-	// traversal(root, vals);
-	// }
-	// return vals;
-	// }
-	//
-	// public void traversal(TreeNode root, ArrayList<Integer> vals) {
-	// if (root != null) {
-	// traversal(root.left, vals);
-	// vals.add(root.val);
-	// traversal(root.right, vals);
-	// } else
-	// return;
-	// }
+//	public List<Integer> inorderTraversal(TreeNode root) {
+//		List<Integer> res = new ArrayList<>();
+//		inorderTraversal(root, res);
+//		return res;
+//	}
+//
+//	public void inorderTraversal(TreeNode root, List<Integer> res) {
+//		if (root == null)
+//			return;
+//		inorderTraversal(root.left, res);
+//		res.add(root.val);
+//		inorderTraversal(root.right, res);
+//	}
+
 	public List<Integer> inorderTraversal(TreeNode root) {
 		List<Integer> res = new ArrayList<>();
 		if (root == null)

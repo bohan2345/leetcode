@@ -1,6 +1,7 @@
 package code;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import test.TreeNode;
 
@@ -8,26 +9,23 @@ public class SumRootToLeaf {
 	public int sumNumbers(TreeNode root) {
 		if (root == null)
 			return 0;
-		ArrayList<Integer> numbers = new ArrayList<Integer>();
-		getAllNumbers(root, numbers, 0);
+		List<Integer> res = new ArrayList<>();
+		dfs(root, res, 0);
 		int sum = 0;
-		for (int i = 0; i < numbers.size(); i++) {
-			sum += numbers.get(i);
+		for (int i = 0; i < res.size(); i++) {
+			sum += res.get(i);
 		}
 		return sum;
 	}
 
-	public void getAllNumbers(TreeNode node, ArrayList<Integer> numbers, int last) {
-		int temp = last * 10 + node.val;
-		if (node.right == null && node.left == null) {
-			numbers.add(temp);
+	public void dfs(TreeNode root, List<Integer> res, int num) {
+		if (root.left == null && root.right == null) {
+			res.add(num * 10 + root.val);
 			return;
 		}
-		if (node.left != null) {
-			getAllNumbers(node.left, numbers, temp);
-		}
-		if (node.right != null) {
-			getAllNumbers(node.right, numbers, temp);
-		}
+		if (root.left != null)
+			dfs(root.left, res, num * 10 + root.val);
+		if (root.right != null)
+			dfs(root.right, res, num * 10 + root.val);
 	}
 }

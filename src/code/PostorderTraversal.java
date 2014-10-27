@@ -10,28 +10,32 @@ import test.TreeNode;
 
 public class PostorderTraversal {
 	public List<Integer> postorderTraversal(TreeNode root) {
-		ArrayList<Integer> vals = new ArrayList<Integer>();
+		List<Integer> res = new ArrayList<>();
 		if (root == null)
-			return vals;
-		Stack<TreeNode> nodes = new Stack<TreeNode>();
-		Set<TreeNode> visited = new HashSet<TreeNode>();
-		nodes.push(root);
-		while (nodes.size() > 0) {
-			TreeNode n = nodes.peek();
-			if (visited.contains(n) || (n.left == null && n.right == null)) {
-				TreeNode node = nodes.pop();
-				vals.add(node.val);
+			return res;
+		Stack<TreeNode> S = new Stack<>();
+		S.push(root);
+		Set<TreeNode> visited = new HashSet<>();
+		while (!S.isEmpty()) {
+			TreeNode node = S.pop();
+			if (visited.contains(node)) {
+				res.add(node.val);
+				visited.remove(node);
 				continue;
-			} else {
-				if (n.right != null) {
-					nodes.push(n.right);
-				}
-				if (n.left != null) {
-					nodes.push(n.left);
-				}
 			}
-			visited.add(n);
+			if (node.right == null && node.left == null) {
+				res.add(node.val);
+			} else {
+				S.push(node);
+				visited.add(node);
+			}
+			if (node.right != null) {
+				S.push(node.right);
+			}
+			if (node.left != null) {
+				S.push(node.left);
+			}
 		}
-		return vals;
+		return res;
 	}
 }

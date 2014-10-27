@@ -12,13 +12,11 @@ public class QuickSort {
 	}
 
 	public void quickSort(int[] num, int left, int right) {
+		if (left >= right)
+			return;
 		int mid = patition(num, left, right);
-		if (left < mid - 1) {
-			quickSort(num, left, mid - 1);
-		}
-		if (right > mid) {
-			quickSort(num, mid, right);
-		}
+		quickSort(num, left, mid - 1);
+		quickSort(num, mid, right);
 	}
 
 	public int patition(int[] num, int left, int right) {
@@ -28,16 +26,13 @@ public class QuickSort {
 		// This can be overcome by using, for example, left + (right-left)/2 to index the middle element
 		int mid = left + (right - left) / 2;
 		int val = num[mid];
-
 		while (left <= right) {
-
 			while (num[left] < val) {
 				left++;
 			}
 			while (num[right] > val) {
 				right--;
 			}
-
 			if (left <= right) {
 				int temp = num[left];
 				num[left] = num[right];

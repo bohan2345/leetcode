@@ -7,27 +7,27 @@ import test.TreeNode;
 
 public class UniqueBSTII {
 	public List<TreeNode> generateTrees(int n) {
-		return build(1, n);
+		return generateTrees(1, n);
 	}
 
-	public List<TreeNode> build(int start, int end) {
-		List<TreeNode> results = new ArrayList<>();
+	public List<TreeNode> generateTrees(int start, int end) {
+		List<TreeNode> res = new ArrayList<>();
 		if (start > end) {
-			results.add(null);
-			return results;
+			res.add(null);
+			return res;
 		}
 		for (int i = start; i <= end; i++) {
-			List<TreeNode> left = build(start, i - 1);
-			List<TreeNode> right = build(i + 1, end);
-			for (int l = 0; l < left.size(); l++) {
-				for (int r = 0; r < right.size(); r++) {
+			List<TreeNode> leftNodes = generateTrees(start, i - 1);
+			List<TreeNode> rightNodes = generateTrees(i + 1, end);
+			for (int left = 0; left < leftNodes.size(); left++) {
+				for (int right = 0; right < rightNodes.size(); right++) {
 					TreeNode root = new TreeNode(i);
-					root.left = left.get(l);
-					root.right = right.get(r);
-					results.add(root);
+					root.left = leftNodes.get(left);
+					root.right = rightNodes.get(right);
+					res.add(root);
 				}
 			}
 		}
-		return results;
+		return res;
 	}
 }

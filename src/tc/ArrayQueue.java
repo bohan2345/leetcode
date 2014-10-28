@@ -21,12 +21,14 @@ public class ArrayQueue implements Queue<Object> {
 		Q = new Object[N + 1];
 	}
 
+	@Override
 	public int size() {
 		if (r > f)
 			return r - f;
 		return N - f + r;
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return (r == f) ? true : false;
 	}
@@ -36,6 +38,30 @@ public class ArrayQueue implements Queue<Object> {
 		if (diff == -1 || diff == N)
 			return true;
 		return false;
+	}
+
+	@Override
+	public boolean offer(Object e) throws QueueFullException {
+		if (isFull()) {
+			throw new QueueFullException("Queue is Full.");
+		} else {
+			Q[r] = e;
+			r = (r + 1) % (N + 1);
+			return true;
+		}
+	}
+
+	@Override
+	public Object poll() throws QueueEmptyException {
+		Object item;
+		if (isEmpty()) {
+			throw new QueueEmptyException();
+		} else {
+			item = Q[f];
+			Q[f] = null;
+			f = (f + 1) % (N + 1);
+		}
+		return item;
 	}
 
 	public class QueueEmptyException extends RuntimeException {
@@ -146,33 +172,9 @@ public class ArrayQueue implements Queue<Object> {
 	}
 
 	@Override
-	public boolean offer(Object e) throws QueueFullException {
-		if (isFull()) {
-			throw new QueueFullException("Queue is Full.");
-		} else {
-			Q[r] = e;
-			r = (r + 1) % (N + 1);
-			return true;
-		}
-	}
-
-	@Override
 	public Object remove() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Object poll() throws QueueEmptyException {
-		Object item;
-		if (isEmpty()) {
-			throw new QueueEmptyException();
-		} else {
-			item = Q[f];
-			Q[f] = null;
-			f = (f + 1) % (N + 1);
-		}
-		return item;
 	}
 
 	@Override

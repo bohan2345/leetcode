@@ -1,10 +1,10 @@
 package tc;
 
-import java.util.Collection;
+import java.util.AbstractQueue;
 import java.util.Iterator;
 import java.util.Queue;
 
-public class ArrayQueue implements Queue<Object> {
+public class ArrayQueue<E> extends AbstractQueue<E> implements Queue<E> {
 
 	private static final int capacity = 5;
 	private Object[] Q;
@@ -51,20 +51,33 @@ public class ArrayQueue implements Queue<Object> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Object poll() throws QueueEmptyException {
-		Object item;
+	public E poll() throws QueueEmptyException {
+		E item;
 		if (isEmpty()) {
 			throw new QueueEmptyException();
 		} else {
-			item = Q[f];
+			item = (E) Q[f];
 			Q[f] = null;
 			f = (f + 1) % (N + 1);
 		}
 		return item;
 	}
 
-	public class QueueEmptyException extends RuntimeException {
+	@Override
+	public E peek() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static class QueueEmptyException extends RuntimeException {
 
 		/**
 		 * 
@@ -84,7 +97,7 @@ public class ArrayQueue implements Queue<Object> {
 		}
 	}
 
-	public class QueueFullException extends RuntimeException {
+	public static class QueueFullException extends RuntimeException {
 
 		/**
 		 * 
@@ -102,90 +115,5 @@ public class ArrayQueue implements Queue<Object> {
 		public QueueFullException(String message, Throwable cause) {
 			super(message, cause);
 		}
-	}
-
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Iterator<Object> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public Object[] toArray(Object[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean add(Object e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Object remove() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object element() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object peek() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

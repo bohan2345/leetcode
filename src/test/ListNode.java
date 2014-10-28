@@ -11,7 +11,7 @@ public class ListNode {
 		val = x;
 		next = null;
 	}
-
+	
 	public ListNode createListNodes(int[] x) {
 		ListNode lastnode = new ListNode(x[0]);
 		ListNode head = lastnode;

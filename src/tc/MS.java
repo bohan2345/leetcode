@@ -12,7 +12,7 @@ public class MS {
 		int i = 0, j = 0;
 		while (i < A.length && j < A.length) {
 			if (!isAllMarked(A[i])) {
-				A[j] = A[i];
+				A[j] = A[i].clone();
 				j++;
 			}
 			i++;

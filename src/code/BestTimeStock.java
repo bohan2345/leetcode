@@ -2,29 +2,24 @@ package code;
 
 public class BestTimeStock {
 	public int maxProfit(int[] prices) {
-		int profit = 0;
 		if (prices.length == 0)
-			return profit;
-		int[] profits = new int[prices.length - 1];
-		for (int i = 0; i < prices.length - 1; i++) {
-			profits[i] = prices[i + 1] - prices[i];
+			return 0;
+		int[] A = new int[prices.length];
+		A[0] = 0;
+		for (int i = 1; i < prices.length; i++) {
+			A[i] = prices[i] - prices[i - 1];
 		}
-		int lastMaxProfit = 0;
-		for (int j = 0; j < profits.length; j++) {
-			profit = profit + profits[j];
-			if (profit < 0) {
-				profit = 0;
-			}
-			if (profits[j] < 0) {
-			}
-			if (profit > lastMaxProfit) {
-				lastMaxProfit = profit;
+		int[] B = new int[A.length];
+		B[0] = 0;
+		int max = 0;
+		for (int i = 1; i < B.length; i++) {
+			if (B[i - 1] + A[i] >= 0) {
+				B[i] = B[i - 1] + A[i];
+				max = Math.max(max, B[i]);
+			} else {
+				B[i] = 0;
 			}
 		}
-		return lastMaxProfit;
-	}
-
-	public int maxProfit2(int[] prices) {
-		return 0;
+		return max;
 	}
 }

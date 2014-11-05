@@ -2,16 +2,12 @@ package code;
 
 public class MaxSubarray {
 	public int maxSubArray(int[] A) {
-		int sum = 0, maxSum = A[0];
-		for (int i = 0; i < A.length; i++) {
-			sum = sum + A[i];
-			if (sum > maxSum) {
-				maxSum = sum;
-			}
-			if (sum < 0) {
-				sum = 0;
-			}
+		int max = A[0];
+		int sum = A[0];
+		for (int i = 1; i < A.length; i++) {
+			sum = Math.max(sum + A[i], A[i]);
+			max = Math.max(sum, max);
 		}
-		return maxSum;
+		return max;
 	}
 }

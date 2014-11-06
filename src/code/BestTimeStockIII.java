@@ -1,6 +1,6 @@
 package code;
 
-public class BestTimeStockII {
+public class BestTimeStockIII {
 	public int maxProfit(int[] prices) {
 		if (prices == null || prices.length == 0)
 			return 0;

@@ -24,4 +24,20 @@ public class KthElementInTwoArray {
 			return find(A, B, aleft + index, aright, bleft, bright, k - index);
 		}
 	}
+
+	public int find(int[] A, int aleft, int[] B, int bleft, int k) {
+		int alength = A.length - aleft;
+		int blength = B.length - bleft;
+		if (alength == 0)
+			return B[bleft + k - 1];
+		if (blength == 0)
+			return A[aleft + k - 1];
+		if (k <= 1)
+			return Math.min(A[aleft], B[bleft]);
+		int index = Math.min(k / 2, Math.min(alength, blength));
+		if (A[aleft + index - 1] > B[bleft + index - 1])
+			return find(A, aleft, B, bleft + index, k - index);
+		else
+			return find(A, aleft + index, B, bleft, k - index);
+	}
 }

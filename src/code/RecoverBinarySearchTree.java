@@ -5,11 +5,14 @@ import test.TreeNode;
 public class RecoverBinarySearchTree {
 	public void recoverTree(TreeNode root) {
 		TreeNode[] nodes = find(root);
-		swap(nodes[0], nodes[1]);
+		int i = nodes[0].val;
+		nodes[0].val = nodes[1].val;
+		nodes[1].val = i;
 	}
 
 	boolean down = false;
-	TreeNode tmp =  new TreeNode(Integer.MIN_VALUE);
+	TreeNode tmp = new TreeNode(Integer.MIN_VALUE);
+
 	private TreeNode[] find(TreeNode root) {
 		TreeNode[] nodes = new TreeNode[2];
 		inorder(root, nodes);
@@ -32,11 +35,5 @@ public class RecoverBinarySearchTree {
 		}
 		tmp = root;
 		inorder(root.right, nodes);
-	}
-
-	public void swap(TreeNode node1, TreeNode node2) {
-		int i = node1.val;
-		node1.val = node2.val;
-		node2.val = i;
 	}
 }

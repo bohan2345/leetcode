@@ -1,7 +1,9 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTreeUtil {
@@ -35,8 +37,26 @@ public class BinaryTreeUtil {
 		return root;
 	}
 
-	public static List<Character> toList(TreeNode root) {
-		List<Character> res = new ArrayList<>();
+	public static TreeNode buildFromLevelOrder(String[] A) {
+		TreeNode root = new TreeNode(Integer.valueOf(A[0]));
+		Queue<TreeNode> S = new LinkedList<>();
+		S.offer(root);
+		for (int i = 1; i < A.length; i = i + 2) {
+			TreeNode node = S.poll();
+			if (!A[i].equals("#")) {
+				node.left = new TreeNode(Integer.valueOf(A[i]));
+				S.offer(node.left);
+			}
+			if (i + 1 < A.length && !A[i + 1].equals("#")) {
+				node.right = new TreeNode(Integer.valueOf(A[i + 1]));
+				S.offer(node.right);
+			}
+		}
+		return root;
+	}
+
+	public static List<String> toListPreOrder(TreeNode root) {
+		List<String> res = new ArrayList<>();
 		if (root == null)
 			return res;
 		Stack<TreeNode> S = new Stack<>();
@@ -44,12 +64,30 @@ public class BinaryTreeUtil {
 		while (!S.isEmpty()) {
 			TreeNode node = S.pop();
 			if (node != null) {
-				res.add(Integer.toString(node.val).charAt(0));
+				res.add(Integer.toString(node.val));
 				S.push(node.right);
 				S.push(node.left);
 			}
 			else
-				res.add('#');
+				res.add("#");
+		}
+		return res;
+	}
+
+	public static List<String> toListLevelOrder(TreeNode root) {
+		List<String> res = new ArrayList<>();
+		if (root == null)
+			return res;
+		Queue<TreeNode> Q = new LinkedList<>();
+		Q.offer(root);
+		while (!Q.isEmpty()) {
+			TreeNode node = Q.poll();
+			if (node != null) {
+				res.add(Integer.toString(node.val));
+				Q.offer(node.left);
+				Q.offer(node.right);
+			} else 
+				res.add("#");
 		}
 		return res;
 	}

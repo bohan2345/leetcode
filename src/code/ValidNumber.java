@@ -2,14 +2,14 @@ package code;
 
 public class ValidNumber {
 	public boolean isNumber(String s) {
-		s = s.trim();
-		if (s.matches("(^\\D*$)|(^[^.\\-+\\d].*)|(.*[^.\\d]$)|(^\\.$)|(^.+[\\-+]+.*$)") || s.length() == 0) {
+		if (s.trim().isEmpty()) {
 			return false;
 		}
-		s = s.replaceAll("\\d", "");
-		if (s.matches("^[\\-+]?[.e]?$"))
+		String regex = "[-+]?(\\d+\\.?|\\.\\d+)\\d*(e[-+]?\\d+)?";
+		if (s.trim().matches(regex)) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 }

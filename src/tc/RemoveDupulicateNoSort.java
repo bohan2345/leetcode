@@ -1,5 +1,6 @@
 package tc;
 
+
 public class RemoveDupulicateNoSort {
 	public int removeDupulicate(int[] C) {
 		if (C.length < 2) {

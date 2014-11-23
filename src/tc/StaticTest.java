@@ -22,7 +22,6 @@ public class StaticTest {
 
 		new StaticNestedClass();
 
-		NestedClass a = new NestedClass();
 
 		List<Integer> t = new LinkedList<>();
 		Iterator<Integer> i = t.iterator();

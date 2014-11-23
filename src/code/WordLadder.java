@@ -1,6 +1,5 @@
 package code;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
@@ -11,7 +10,6 @@ public class WordLadder {
 		Q.offer(start);
 		int level = 1;
 		int cur = 1, next = 0;
-		Set<String> visited = new HashSet<>();
 		while (!Q.isEmpty()) {
 			String str = Q.poll();
 			char[] charseq = str.toCharArray();
@@ -25,14 +23,14 @@ public class WordLadder {
 					String newStr = new String(charseq);
 					if (newStr.equals(end))
 						return level + 1;
-					if (dict.contains(newStr) && !visited.contains(newStr)) {
+					if (dict.contains(newStr)) {
 						Q.offer(newStr);
+						dict.remove(newStr);
 						next++;
 					}
 					charseq[i] = tmp;
 				}
 			}
-			visited.add(str);
 			if (cur == 0) {
 				cur = next;
 				next = 0;

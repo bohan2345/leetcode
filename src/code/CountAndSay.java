@@ -1,7 +1,7 @@
 package code;
 
 public class CountAndSay {
-	public String countAndSay(int n) {
+	public String countAndSayII(int n) {
 		String x = String.valueOf(1);
 		int m = 1;
 		String result = String.valueOf(n);
@@ -32,5 +32,25 @@ public class CountAndSay {
 			m++;
 		}
 		return result;
+	}
+
+	public String countAndSay(int n) {
+		return hehe(n, 1, "1");
+	}
+
+	public String hehe(int n, int x, String tmp) {
+		if (n == x)
+			return tmp;
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < tmp.length();) {
+			char c = tmp.charAt(i);
+			int count = 0;
+			while (i < tmp.length() && c == tmp.charAt(i)) {
+				count++;
+				i++;
+			}
+			builder.append(count).append(c);
+		}
+		return hehe(n, x + 1, builder.toString());
 	}
 }

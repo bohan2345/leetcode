@@ -4,7 +4,7 @@ package code;
 //Must have the following methods/functions: head(), tail(), add(Object), addAfter(Node,Object), delete(Object)
 //Do not maintain a reference/pointer to the tail node
 
-class LinkedList {
+class MyLinkedList {
 	private Node head;
 
 	class Node {

@@ -2,16 +2,17 @@ package code;
 
 public class RotateImage {
 	public void rotate(int[][] matrix) {
-		int n = matrix.length;
-		int temp = 0;
-		for (int i = 0; i < n / 2; i++) {
-			for (int j = i; j < n - i - 1; j++) {
-				temp = matrix[i][j];
-				matrix[i][j] = matrix[n - j - 1][i];
-				matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
-				matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
-				matrix[j][n - i - 1] = temp;
-			}
-		}
-	}
+        if (matrix == null || matrix.length == 0)
+            throw new IllegalArgumentException("hehe");
+        int n = matrix.length;
+        for (int l = 0; l < n / 2; l++) {
+            for (int i = l; i < n - l - 1; i++) {
+                int tmp = matrix[l][i];
+                matrix[l][i] = matrix[n - i - 1][l];
+                matrix[n - i - 1][l] = matrix[n - l - 1][n - i - 1];
+                matrix[n - l - 1][n - i - 1] = matrix[i][n - l - 1];
+                matrix[i][n - l - 1] = tmp;
+            }
+        }
+    }
 }

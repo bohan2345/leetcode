@@ -11,7 +11,7 @@ public class Base26 {
 		if (n <= 0)
 			throw new IllegalArgumentException("hehe");
 		Map<Integer, Character> table = new HashMap<>();
-		for (int i = 0; i <= 26; i++) {
+		for (int i = 1; i <= 26; i++) {
 			table.put(i, (char) ('A' + i - 1));
 		}
 		StringBuilder res = new StringBuilder();
@@ -23,7 +23,7 @@ public class Base26 {
 	}
 
 	public static void main(String[] args) {
-		String s = new Base26().convert(0);
+		String s = new Base26().convert(1);
 		System.out.println(s);
 	}
 }

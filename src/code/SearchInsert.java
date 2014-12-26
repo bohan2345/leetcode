@@ -2,39 +2,25 @@ package code;
 
 public class SearchInsert {
 	public int searchInsert(int[] A, int target) {
-		if (A[0] > target) {
+		if (A == null || A.length == 0)
 			return 0;
-		} else if (A[A.length - 1] < target) {
-			return A.length;
-		} else {
-			return binarySearch(A, target, 0, A.length - 1);
-		}
-	}
-
-	public int binarySearch(int[] A, int key, int imin, int imax) {
-		if (imax < imin) {
-			return imin;
-		}
-		int imid = (imin + imax) / 2;
-		if (key > A[imid]) {
-			return binarySearch(A, key, imid + 1, imax);
-		} else if (key < A[imid]) {
-			return binarySearch(A, key, imin, imid - 1);
-		} else
-			return imid;
-	}
-
-	public int binarySearchII(int[] A, int key, int imin, int imax) {
-		while (imax >= imin) {
-			int imid = (imin + imax) / 2;
-			if (key > A[imid]) {
-				imin = imid+1;
-			} else if (key < A[imid]) {
-				imax = imid - 1;
-			} else{
-				return imid;
+		int left = 0, right = A.length - 1;
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if (target == A[mid])
+				return mid;
+			else {
+				if (target > A[mid]) {
+					left = mid + 1;
+					if (left < A.length && A[left] > target)
+						return mid + 1;
+				} else {
+					right = mid - 1;
+					if (right >= 0 && A[right] < target)
+						return mid;
+				}
 			}
 		}
-		return imin;
+		return target > A[0] ? A.length : 0;
 	}
 }

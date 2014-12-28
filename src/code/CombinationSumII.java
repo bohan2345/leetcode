@@ -5,29 +5,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CombinationSumII {
-	public List<List<Integer>> combinationSum2(int[] num, int target) {
-		List<List<Integer>> results = new ArrayList<>();
-		Arrays.sort(num);
-		dfs(results, num, target, 0, 0, new ArrayList<Integer>());
-		return results;
+	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+		Arrays.sort(candidates);
+		List<List<Integer>> res = new ArrayList<>();
+		search(candidates, target, new ArrayList<Integer>(), 0, 0, res);
+		return res;
 	}
 
-	void dfs(List<List<Integer>> results, int[] A, int target, int sum, int index, List<Integer> tmp) {
-		if (sum == target) {
-			List<Integer> n = new ArrayList<>(tmp);
-			results.add(n);
+	void search(int[] candidates, int target, List<Integer> tmp, int sum, int i, List<List<Integer>> res) {
+		if (sum >= target)
 			return;
-		} else if (sum > target) {
-			return;
-		}
-		for (int i = index; i < A.length; i++) {
-			tmp.add(A[i]);
-			dfs(results, A, target, sum + A[i], i + 1, tmp);
-			tmp.remove(tmp.size() - 1);
-			while (i < A.length - 1 && A[i + 1] == A[i]) {
-				i++;
+		for (; i < candidates.length; i++) {
+			tmp.add(candidates[i]);
+			if (sum + candidates[i] == target) {
+				res.add(new ArrayList<Integer>(tmp));
 			}
+			search(candidates, target, tmp, sum + candidates[i], i + 1, res);
+			int x = tmp.get(tmp.size() - 1);
+			tmp.remove(tmp.size() - 1);
+			while (i + 1 < candidates.length && candidates[i + 1] == x)
+				i++;
 		}
-		return;
 	}
 }

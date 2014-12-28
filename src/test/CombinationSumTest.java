@@ -2,13 +2,13 @@ package test;
 
 import java.util.List;
 
-import code.CombinationSumII;
+import code.CombinationSum;
 
 public class CombinationSumTest {
 	public static void main(String[] args) {
-		CombinationSumII test = new CombinationSumII();
-		int[] candidates = { 3,1,3,5,1,1};
-		List<List<Integer>> t = test.combinationSum2(candidates, 8);
+		CombinationSum test = new CombinationSum();
+		int[] candidates = { 2, 2, 2, 3, 3, 3 };
+		List<List<Integer>> t = test.combinationSum(candidates, 5);
 		System.out.println(t.toString());
 	}
 }

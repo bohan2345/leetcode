@@ -2,6 +2,7 @@ package code;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Subsets {
 	public ArrayList<ArrayList<Integer>> subsets(int[] S) {
@@ -20,4 +21,27 @@ public class Subsets {
 		}
 		return result;
 	}
+	
+	public List<List<Integer>> subsetsII(int[] S) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (S == null || S.length == 0)
+            return res;
+        Arrays.sort(S);
+        List<Integer> tmp = new ArrayList<>();
+        res.add(tmp);
+        helper(S, res, tmp, 0);
+        return res;
+    }
+    
+    void helper(int[] S, List<List<Integer>> res, List<Integer> tmp, int i) {
+        if (tmp.size() == S.length) {
+            return;
+        }
+        for (; i < S.length; i++) {
+            tmp.add(S[i]);
+            res.add(new ArrayList<Integer>(tmp));
+            helper(S, res, tmp, i + 1);
+            tmp.remove(tmp.size() - 1);
+        }
+    }
 }

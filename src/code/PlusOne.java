@@ -24,4 +24,26 @@ public class PlusOne {
 		}
 		return digits;
 	}
+
+	public int[] plusOneII(int[] digits) {
+		return plusOne(digits, digits.length - 1);
+	}
+
+	int[] plusOne(int[] digits, int last) {
+		if (last == -1) {
+			int[] newDigits = new int[digits.length + 1];
+			newDigits[0] = 1;
+			for (int i = 1; i < newDigits.length; i++) {
+				newDigits[i] = digits[i - 1];
+			}
+			return newDigits;
+		}
+		if (digits[last] + 1 == 10) {
+			digits[last] = 0;
+			return plusOne(digits, last - 1);
+		} else {
+			digits[last] += 1;
+			return digits;
+		}
+	}
 }

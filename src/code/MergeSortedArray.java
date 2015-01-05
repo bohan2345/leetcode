@@ -16,8 +16,6 @@ public class MergeSortedArray {
 			for (int x = j; x > 0; x--) {
 				A[x - 1] = B[x - 1];
 			}
-		} else {
-
 		}
 	}
 }

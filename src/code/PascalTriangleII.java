@@ -5,29 +5,18 @@ import java.util.List;
 
 public class PascalTriangleII {
 	public List<Integer> getRow(int rowIndex) {
-		List<Integer> row = new ArrayList<Integer>();
-		List<Integer> lastRow = new ArrayList<Integer>();
-		lastRow.add(1);
-		if (rowIndex <= 0) {
-			return lastRow;
-		}
-
-		for (int i = 0; i < rowIndex; i++) {
-			for (int j = 0; j <= lastRow.size(); j++) {
-				int tempNum = 0;
-				if (j == 0) {
-					tempNum = lastRow.get(j);
-				} else if (j == lastRow.size()) {
-					tempNum = lastRow.get(j - 1);
-				} else {
-					tempNum = lastRow.get(j - 1) + lastRow.get(j);
-				}
-				row.add(tempNum);
-			}
-			lastRow.clear();
-			lastRow.addAll(row);
-			row.clear();
-		}
-		return lastRow;
-	}
+        List<Integer> curRow = new ArrayList<>();
+        if (rowIndex < 0) return curRow;
+        curRow.add(1);
+        for (int i = 1; i < rowIndex + 1; i++) {
+            List<Integer> newRow = new ArrayList<>();
+            newRow.add(1);
+            for (int j = 1; j < curRow.size(); j++) {
+                newRow.add(curRow.get(j - 1) + curRow.get(j));
+            }
+            newRow.add(1);
+            curRow = newRow;
+        }
+        return curRow;
+    }
 }

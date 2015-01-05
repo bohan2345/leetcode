@@ -1,12 +1,14 @@
 package test;
 
 import code.Subsets;
+import code.SubsetsWithDup;
 
 public class SubsetsTest {
 	public static void main(String[] args) {
-		Subsets test = new Subsets();
-		int[] S = { 1, 2, 3 };
+//		Subsets test = new Subsets();
+		int[] S = { 2, 2, 2 };
 
-		System.out.println(test.subsetsII(S).toString());
+		System.out.println(new SubsetsWithDup().subsetsWithDupII(S));
+		System.out.println(new SubsetsWithDup().subsetsWithDup(S));
 	}
 }

@@ -29,4 +29,30 @@ public class SubsetsWithDup {
 		}
 		return results;
 	}
+	
+	public List<List<Integer>> subsetsWithDupII(int[] num) {
+        List<List<Integer>> res = new ArrayList<>();
+        if (num == null || num.length == 0) {
+            return res;
+        }
+        Arrays.sort(num);
+        List<Integer> tmp = new ArrayList<>();
+        res.add(tmp);
+        helper(num, 0, res, tmp);
+        return res;
+    }
+    
+    void helper(int[] num, int i, List<List<Integer>> res, List<Integer> tmp) {
+        if (i == num.length)
+            return;
+        for (; i < num.length; i++) {
+            tmp.add(num[i]);
+            res.add(new ArrayList<>(tmp));
+            helper(num, i + 1, res, tmp);
+            int x = tmp.get(tmp.size() - 1);
+            tmp.remove(tmp.size() - 1);
+            while (i + 1 < num.length && num[i + 1] == x)
+                i++;
+        }
+    }
 }

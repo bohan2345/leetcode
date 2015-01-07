@@ -29,30 +29,24 @@ public class Triangle {
 		return min;
 	}
 
-	public int minimumTotalII(List<List<Integer>> triangle) {
-		if (triangle == null)
-			throw new IllegalArgumentException("hehe");
-		int n = triangle.get(triangle.size() - 1).size();
-		int[] lastRow = new int[n];
-		int[] curRow = new int[n];
-		curRow[0] = triangle.get(0).get(0);
-		lastRow[0] = triangle.get(0).get(0);
-		for (int level = 1; level < triangle.size(); level++) {
-			List<Integer> l = triangle.get(level);
-			for (int i = 0; i < l.size(); i++) {
-				if (i == 0)
-					curRow[i] = lastRow[0] + l.get(i);
-				else if (i == l.size() - 1)
-					curRow[i] = lastRow[i - 1] + l.get(i);
-				else
-					curRow[i] = Math.min(lastRow[i] + l.get(i), lastRow[i - 1] + l.get(i));
-			}
-			lastRow = curRow.clone();
-		}
-		int min = curRow[0];
-		for (int i = 0; i < curRow.length; i++) {
-			min = Math.min(curRow[i], min);
-		}
-		return min;
-	}
+    public int minimumTotalII(List<List<Integer>> triangle) {
+        if (triangle == null || triangle.size() == 0)
+            return 0;
+        List<Integer> minimumSum = new ArrayList<>();
+        minimumSum.add(triangle.get(0).get(0));
+        for (int i = 1; i < triangle.size(); i++) {
+            List<Integer> tmp = new ArrayList<>();
+            tmp.add(minimumSum.get(0) + triangle.get(i).get(0));
+            for (int j = 1; j < triangle.get(i).size() - 1; j++) {
+                tmp.add(Math.min(minimumSum.get(j), minimumSum.get(j - 1)) + triangle.get(i).get(j));
+            }
+            tmp.add(minimumSum.get(minimumSum.size() - 1) + triangle.get(i).get(minimumSum.size()));
+            minimumSum = tmp;
+        }
+        int min = minimumSum.get(0);
+        for (int i = 1; i < minimumSum.size(); i++) {
+            min = Math.min(min, minimumSum.get(i));
+        }
+        return min;
+    }
 }

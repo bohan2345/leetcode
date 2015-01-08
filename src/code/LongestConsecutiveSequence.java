@@ -4,40 +4,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LongestConsecutiveSequence {
-	public int longestConsecutive(int[] num) {
-		if (num == null) {
-			return 0;
-		}
-		Set<Integer> numbers = new HashSet<Integer>();
-		for (int i = 0; i < num.length; i++) {
-			numbers.add(num[i]);
-		}
-		int maxLength = 0;
-		for (int i = 0; i < num.length; i++) {
-			int n = num[i];
-			int length = 1;
-			while (numbers.size() > 0) {
-				if (numbers.contains(n + 1)) {
-					length++;
-					numbers.remove(n + 1);
-					n = n + 1;
-				} else {
-					break;
-				}
-			}
-			n = num[i];
-			while (numbers.size() > 0) {
-				if (numbers.contains(n - 1)) {
-					length++;
-					numbers.remove(n - 1);
-					n = n - 1;
-				} else {
-					break;
-				}
-			}
-			numbers.remove(n);
-			maxLength = maxLength > length ? maxLength : length;
-		}
-		return maxLength;
-	}
+    public int longestConsecutive(int[] num) {
+        if (num == null || num.length == 0)
+            return 0;
+        Set<Integer> S = new HashSet<>();
+        for (int i : num)
+            S.add(i);
+        int max = 0;
+        for (int i : num) {
+            int right = i + 1, left = i - 1, count = 1;
+            while (S.contains(left)) {
+                S.remove(left);
+                left--;
+                count++;
+            }
+            while (S.contains(right)) {
+                S.remove(right);
+                right++;
+                count++;
+            }
+            max = Math.max(count, max);
+        }
+        return max;
+    }
 }

@@ -5,7 +5,7 @@ import code.BestTimeStockN;
 
 public class BestTimeStockTest {
 	public static void main(String[] args) {
-		int[] p = { 1, 3, 5, 3, 7, 8, 4, 2, 9 };
+		int[] p = { 1, 3 };
 		int m = (new BestTimeStockIII()).maxProfit(p);
 
 		System.out.println(m);

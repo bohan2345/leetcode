@@ -12,42 +12,27 @@ public class ValidPalindrome {
 		}
 	}
 
-	public boolean isPalindrome(String s) {
-		int left = 0, right = s.length() - 1;
-		while (left < right) {
-			char leftc = s.charAt(left);
-			while (!isLetter(leftc)) {
-				left++;
-				if (left > right) {
-					break;
-				}
-				leftc = s.charAt(left);
-			}
-			leftc = Character.toLowerCase(leftc);
-			char rightc = s.charAt(right);
-			while (!isLetter(rightc)) {
-				right--;
-				if (right < left)
-					break;
-				rightc = s.charAt(right);
-			}
-			if (right < left)
-				break;
-			rightc = Character.toLowerCase(rightc);
-			if (rightc != leftc) {
-				return false;
-			} else {
-				right--;
-				left++;
-			}
-		}
-		return true;
-	}
-
-	public boolean isLetter(char c) {
-		if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-			return true;
-		else
-			return false;
-	}
+    public boolean isPalindrome(String s) {
+        s = s.trim().toLowerCase();
+        if (s.length() == 0)
+            return true;
+        int l = 0, r = s.length() - 1;
+        while (l <= r) {
+            while (l < r && !isAlpha(s.charAt(l))) {
+                l++;
+            }
+            while (r > l && !isAlpha(s.charAt(r))) {
+                r--;
+            }
+            if (s.charAt(l) != s.charAt(r))
+                return false;
+            l++;
+            r--;
+        }
+        return true;
+    }
+    
+    boolean isAlpha(char c) {
+        return (c <= 'z' && c >= 'a') || (c >= '0' && c <= '9');
+    }
 }

@@ -1,6 +1,5 @@
 package test;
 
-import code.Subsets;
 import code.SubsetsWithDup;
 
 public class SubsetsTest {

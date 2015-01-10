@@ -31,7 +31,6 @@ public class LongestCommonSubstring {
 			String tmp = A.substring(pos.get(i) + 1 - max, pos.get(i) + 1);
 			results.add(tmp);
 		}
-
 		return results;
 	}
 }

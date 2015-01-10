@@ -30,7 +30,7 @@ public class LongestPalindromic {
 
 	public String longestPalindromeII(String s) {
 		int[][] A = new int[s.length()][s.length()];
-		int max = 0, x = 0;
+		int max = 1, x = 0;
 		for (int i = 0; i < s.length(); i++) {
 			A[i][i] = 1;
 		}
@@ -41,8 +41,8 @@ public class LongestPalindromic {
 				x = i;
 			}
 		}
-		for (int i = s.length() - 2; i >= 0; i--) {
-			for (int j = i + 1; j < s.length(); j++) {
+		for (int i = s.length() - 3; i >= 0; i--) {
+			for (int j = i + 2; j < s.length(); j++) {
 				if (A[i + 1][j - 1] > 0 && s.charAt(i) == s.charAt(j))
 					A[i][j] = A[i + 1][j - 1] + 2;
 				if (A[i][j] > max) {

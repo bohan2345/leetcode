@@ -1,7 +1,26 @@
 package code;
 
 public class AddBinary {
-	public String addBinary(String a, String b) {
+    public String addBinary(String a, String b) {
+        if (b.length() > a.length())
+            return addBinary(b, a);
+        int carry = 0;
+        int ai = a.length() - 1, bi = b.length() - 1;
+        StringBuilder sb = new StringBuilder();
+        while (ai >= 0) {
+            int ac = a.charAt(ai) - '0', bc = bi >= 0 ? b.charAt(bi) - '0' : 0;
+            int sum = ac + bc + carry;
+            carry = (sum / 2);
+            sb.insert(0, sum % 2);
+            ai--;
+            bi--;
+        }
+        if (carry > 0) 
+            sb.insert(0, carry);
+        return sb.toString();
+    }
+    
+	public String addBinaryII(String a, String b) {
 		StringBuilder sb = new StringBuilder();
 		int i = a.length() - 1, j = b.length() - 1;
 		int l = 0;

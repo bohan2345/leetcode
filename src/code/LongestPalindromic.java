@@ -25,9 +25,32 @@ public class LongestPalindromic {
 				}
 			}
 		}
-		if (index + max == s.length())
-			return s.substring(index);
-		else
-			return s.substring(index, index + max);
+		return s.substring(index, index + max);
+	}
+
+	public String longestPalindromeII(String s) {
+		int[][] A = new int[s.length()][s.length()];
+		int max = 0, x = 0;
+		for (int i = 0; i < s.length(); i++) {
+			A[i][i] = 1;
+		}
+		for (int i = 0; i < s.length() - 1; i++) {
+			if (s.charAt(i) == s.charAt(i + 1)) {
+				A[i][i + 1] = 2;
+				max = 2;
+				x = i;
+			}
+		}
+		for (int i = s.length() - 2; i >= 0; i--) {
+			for (int j = i + 1; j < s.length(); j++) {
+				if (A[i + 1][j - 1] > 0 && s.charAt(i) == s.charAt(j))
+					A[i][j] = A[i + 1][j - 1] + 2;
+				if (A[i][j] > max) {
+					max = A[i][j];
+					x = i;
+				}
+			}
+		}
+		return s.substring(x, x + max);
 	}
 }

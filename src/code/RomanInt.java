@@ -1,5 +1,8 @@
 package code;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RomanInt {
 	public int romanToInt(String s) {
 		int sum = 0;
@@ -124,4 +127,34 @@ public class RomanInt {
 		}
 		return str;
 	}
+	
+    public int romanToIntII(String s) {
+		Map<String, Integer> table = new HashMap<>();
+		table.put("M", 1000);
+		table.put("CM", 900);
+		table.put("D", 500);
+		table.put("CD", 400);
+		table.put("C", 100);
+		table.put("XC", 90);
+		table.put("L", 50);
+		table.put("XL", 40);
+		table.put("X", 10);
+		table.put("IX", 9);
+		table.put("V", 5);
+		table.put("IV", 4);
+		table.put("I", 1);
+		int num = 0;
+		while (s.length() > 0) {
+		    String sub1 = s.substring(0, 1);
+		    String sub2 = s.length() >= 2 ? s.substring(0, 2) : "";
+		    if (table.containsKey(sub2)) {
+		        num += table.get(sub2);
+		        s = s.substring(2);
+		    } else {
+		        num += table.get(sub1);
+		        s = s.substring(1);
+		    }
+		}
+		return num;
+    }
 }

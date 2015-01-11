@@ -4,9 +4,9 @@ import code.WildcardMatching;
 
 public class WildcardMatchingTest {
 	public static void main(String[] args) {
-		String s = "asd";
-		String p = "as?";
-		boolean x  = new WildcardMatching().isMatch(s, p);
+		String s = "aa";
+		String p = "?***";
+		boolean x  = new WildcardMatching().isMatchII(s, p);
 		System.out.println(x);
 	}
 }

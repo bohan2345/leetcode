@@ -2,27 +2,17 @@ package code;
 
 public class LongestCommonPrefix {
 	public String longestCommonPrefix(String[] strs) {
-		String prefix = "";
-		if (strs == null || strs.length == 0) {
-			return prefix;
-		}
-		int n = 0;
-		while (n < strs[0].length()) {
-			char c = strs[0].charAt(n);
-			char cc = strs[0].charAt(n);
+		if (strs.length == 0)
+			return "";
+		int len = 0;
+		for (int j = 0; j < strs[0].length(); j++) {
+			char tmp = strs[0].charAt(j);
 			for (int i = 0; i < strs.length; i++) {
-				if (n == strs[i].length()) {
-					return prefix;
-				}
-				cc = strs[i].charAt(n);
-				if (c != cc) {
-					return prefix;
-				}
+				if (j >= strs[i].length() || tmp != strs[i].charAt(j))
+					return strs[0].substring(0, len);
 			}
-			c = cc;
-			prefix += String.valueOf(c);
-			n++;
+			len++;
 		}
-		return prefix;
+		return strs[0].substring(0, len);
 	}
 }

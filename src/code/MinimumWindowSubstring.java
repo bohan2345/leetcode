@@ -5,63 +5,41 @@ import java.util.Map;
 
 public class MinimumWindowSubstring {
 	public String minWindow(String S, String T) {
-		int left = 0, right = 0;
-		int[] max = { Integer.MIN_VALUE + 1, 0 };
-		Map<Character, Integer> window = new HashMap<>();
+		Map<Character, Integer> need = new HashMap<>();
 		for (int i = 0; i < T.length(); i++) {
 			char c = T.charAt(i);
-			if (window.containsKey(c)) {
-				window.put(c, window.get(c) + 1);
+			if (need.containsKey(c)) {
+				need.put(c, need.get(c) + 1);
 			} else {
-				window.put(c, 1);
+				need.put(c, 1);
 			}
 		}
-		Map<Character, Integer> table = new HashMap<>();
-		while (right < S.length()) {
-			boolean f = false;
-			while (right < S.length()) {
-				char c = S.charAt(right);
-				right++;
-				if (table.containsKey(c)) {
-					table.put(c, table.get(c) + 1);
-				} else {
-					table.put(c, 1);
+		int l = 0, r = 0, min = S.length() + 1, start = 0;
+		while (r <= S.length()) {
+			if (isSatisfy(need)) {
+				if (min > r - l) {
+					min = r - l;
+					start = l;
 				}
-				if (satisfy(window, table)) {
-					f = true;
-					break;
+				if (need.containsKey(S.charAt(l))) {
+					need.put(S.charAt(l), need.get(S.charAt(l)) + 1);
 				}
+				l++;
+				continue;
 			}
-			if (!f && right == S.length())
-				break;
-			while (left <= right) {
-				char c = S.charAt(left);
-				left++;
-				table.put(c, table.get(c) - 1);
-				if (window.containsKey(c) && window.get(c) > table.get(c)) {
-					break;
-				}
-			}
-			if (max[1] - max[0] > right - left) {
-				max[0] = left - 1;
-				max[1] = right;
-			}
+			if (r < S.length() && need.containsKey(S.charAt(r))) {
+				int n = need.get(S.charAt(r)) - 1;
+				need.put(S.charAt(r), n);
+			} 
+			r++;
 		}
-		if (max[0] < 0) {
-			max[0] = 0;
-		}
-		return S.substring(max[0], max[1]);
+		return min <= S.length() ? S.substring(start, start + min) : "";
 	}
 
-	public boolean satisfy(Map<Character, Integer> map1, Map<Character, Integer> map2) {
-		// if for each item in map2 >= map1 then return true
-		for (char c : map1.keySet()) {
-			if (!map2.containsKey(c)) {
+	boolean isSatisfy(Map<Character, Integer> table) {
+		for (char c : table.keySet()) {
+			if (table.get(c) > 0)
 				return false;
-			}
-			if (map2.get(c) < map1.get(c)) {
-				return false;
-			}
 		}
 		return true;
 	}

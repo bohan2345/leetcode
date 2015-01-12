@@ -18,7 +18,7 @@ public class SubstringOfAllWordsTest {
 		String S= "a";
 		String[] L = {"a"};
 		SubstringWithConcatenationOfAllWords test = new SubstringWithConcatenationOfAllWords();
-		List<Integer> s = test.findSubstring(S, L);
-		System.out.println(s.size());
+		List<Integer> s = test.findSubstringII(S, L);
+		System.out.println(s.toString());
 	}
 }

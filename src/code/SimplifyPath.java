@@ -3,26 +3,21 @@ package code;
 import java.util.Stack;
 
 public class SimplifyPath {
-	public String simplifyPath(String path) {
-		if (path == null || path.length() == 0)
-            return "";
+    public String simplifyPath(String path) {
         Stack<String> S = new Stack<>();
-        String[] sub = path.split("/");
-        String res = "";
-        for (int i = 0; i < sub.length; i++) {
-            if (sub[i].equals(".") || sub[i].equals("")){
-            } else if (sub[i].equals("..")) {
-                if (!S.isEmpty())
-                    S.pop();
-            } else {
-                S.push(sub[i]);
-            }
+        String[] pathArray = path.split("/");
+        for (int i = 0; i < pathArray.length; i++) {
+            if (!S.isEmpty() && pathArray[i].equals(".."))
+                S.pop();
+            else if (pathArray[i].length() == 0 || pathArray[i].equals(".") || pathArray[i].equals(".."))
+                continue;
+            else
+                S.push(pathArray[i]);
         }
+        StringBuilder sb = new StringBuilder();
         while (!S.isEmpty()) {
-            res = "/" + S.pop() + res;
+            sb.insert(0, S.pop()).insert(0, "/");
         }
-        if (res.equals(""))
-            res = "/";
-        return res;
+        return sb.length() == 0 ? "/" : sb.toString();
     }
 }

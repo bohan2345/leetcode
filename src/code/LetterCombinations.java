@@ -54,4 +54,17 @@ public class LetterCombinations {
 		}
 		return results;
 	}
+	
+	void helper(String digits, int i, List<String> res, StringBuilder tmp, Map<Integer, List<Character>> table) {
+        if (i == digits.length()) {
+            res.add(tmp.toString());
+            return;
+        }
+        List<Character> A = table.get(digits.charAt(i) - '0');
+        for (int j = 0; j < A.size(); j++) {
+            tmp.append(A.get(j));
+            helper(digits, i + 1, res, tmp, table);
+            tmp.deleteCharAt(tmp.length() - 1);
+        }
+    }
 }

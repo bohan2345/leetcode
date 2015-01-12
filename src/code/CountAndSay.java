@@ -53,4 +53,25 @@ public class CountAndSay {
 		}
 		return hehe(n, x + 1, builder.toString());
 	}
+	
+    public String countAndSayIII(int n) {
+        String s = "1";
+        for (int i = 1; i < n; i++)
+            s = countAndSay(s);
+        return s;
+    }
+    
+    String countAndSay(String str) {
+        int count  = 1;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= str.length(); i++) {
+            if (i != str.length() && str.charAt(i) == str.charAt(i - 1))
+                count++;
+            else {
+                sb.append(count).append(str.charAt(i - 1));
+                count = 1;
+            }
+        }
+        return sb.toString();
+    }
 }

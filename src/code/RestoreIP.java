@@ -43,4 +43,24 @@ public class RestoreIP {
 			}
 		}
 	}
+	
+    public List<String> restoreIpAddressesII(String s) {
+        List<String> res = new ArrayList<>();
+        restore(s, 0, res, "", 4);
+        return res;
+    }
+    
+    void restore(String s, int i, List<String> res, String tmp, int n) {
+    	if ((s.length() - i) > 3 * n)
+    		return;
+        if (n == 0) {
+            res.add(tmp.substring(1));
+            return;
+        }
+        for (int j = i + 1; j <= s.length() && j <= i + 3; j++) {
+            String sub = s.substring(i, j);
+            if (Integer.valueOf(sub) <= 255 && !(sub.length() != 1 && sub.charAt(0) == '0'))
+                restore(s, j, res, tmp + "." + sub, n - 1);
+        }
+    }
 }

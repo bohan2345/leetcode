@@ -23,4 +23,8 @@ public class DecodeWays {
 		}
 		return number[s.length()];
 	}
+	
+    public static void main(String[] args) {
+		System.out.println(new DecodeWays().numDecodings("10"));
+	}
 }

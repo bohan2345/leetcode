@@ -9,6 +9,6 @@ public class ReverseNodesKGroupTest {
 		int[] A = { 1, 2, 3, 4 };
 		head = head.createListNodes(A);
 		head = test.reverseKGroup(head, 2);
-		System.out.println(1);
+		System.out.println(head.toString());
 	}
 }

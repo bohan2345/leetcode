@@ -1,31 +1,25 @@
 package code;
 
 public class ReverseInteger {
-	// public int reverse(int x) {
-	// int[] digits = getDigits(x);
-	// int newint = 0;
-	// for (int i = 0; i < digits.length; i++) {
-	// newint = 10 * newint + digits[i];
-	// }
-	// return newint;
-	// }
-	//
-	// public int[] getDigits(int x) {
-	// int[] digits = new int[10];
-	// int n = 1, i = 0;
-	// while (x != 0) {
-	// n = x / 10;
-	// int a = (x - n * 10);
-	// digits[i] = a;
-	// i++;
-	// x = n;
-	// }
-	// int[] xxx = new int[i];
-	// for(int j=0;j<xxx.length;j++){
-	// xxx[j]=digits[j];
-	// }
-	// return xxx;
-	// }
+	public int reverseII(int x) {
+        int f = 1;
+        String s = "";
+        if (x < 0) {
+            f = -1;
+            s = Integer.toString(x * -1);
+        } else {
+            s = Integer.toString(x);
+        }
+        StringBuilder sb = new StringBuilder(s);
+        sb.reverse();
+        s = sb.toString();
+        try {
+            return Integer.valueOf(s) * f;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+	
 	public int reverse(int x) {
 		int isNagetive = 1;
 		if (x < 0) {

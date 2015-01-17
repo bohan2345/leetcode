@@ -16,17 +16,17 @@ public class SortList {
 	}
 
 	public ListNode mergeSort(ListNode head, int length) {
-		if (length == 1) {
-			head.next = null;
-			return head;
-		}
-		int mid = length / 2;
-		ListNode node = head;
-		while (mid > 0) {
-			mid--;
-			node = node.next;
-		}
-		return merge(mergeSort(head, length / 2), mergeSort(node, length - length / 2));
+		if (head.next == null)
+            return head;
+        ListNode node = head;
+        for (int i = 1; i < length / 2; i++) {
+            node = node.next;
+        }
+        ListNode head2 = node.next;
+        node.next = null;
+        head = mergeSort(head, length / 2);
+        head2 = mergeSort(head2, length - length / 2);
+        return merge(head, head2);
 	}
 
 	public ListNode merge(ListNode node1, ListNode node2) {

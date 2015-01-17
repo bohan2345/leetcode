@@ -23,4 +23,22 @@ public class SwapNodesPairs {
 		}
 		return newHead;
 	}
+	
+	public ListNode swapPairsII(ListNode head) {
+        ListNode newHead = new ListNode(0);
+        newHead.next = head;
+        swap(newHead);
+        return newHead.next;
+    }
+    
+    void swap(ListNode prev) {
+        if (prev.next == null || prev.next.next == null)
+            return;
+        ListNode node1 = prev.next;
+        ListNode node2 = prev.next.next;
+        prev.next = node2;
+        node1.next = node2.next;
+        node2.next = node1;
+        swap(prev.next.next);
+    }
 }

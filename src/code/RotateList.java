@@ -3,39 +3,31 @@ package code;
 import test.ListNode;
 
 public class RotateList {
-	// public ListNode rotateRight(ListNode head, int n) {
-	// int length = 0;
-	// ListNode node = head;
-	// ListNode end = head;
-	// while (node != null) {
-	// length++;
-	// if (node.next == null) {
-	// end = node;
-	// }
-	// node = node.next;
-	// }
-	// if (length < 2) {
-	// return head;
-	// }
-	// node = head;
-	// int count = length - n % length;
-	// ListNode newEnd = end;
-	// while (count > 0) {
-	// if (count == 1) {
-	// newEnd = node;
-	// }
-	// node = node.next;
-	// count--;
-	// }
-	// end.next = head;
-	// newEnd.next = null;
-	// if (node == null)
-	// return head;
-	// else
-	// return node;
-	// }
-
 	public ListNode rotateRight(ListNode head, int n) {
+		if (head == null)
+			return null;
+		int length = 0;
+		ListNode node = head;
+		ListNode end = null;
+		while (node != null) {
+			end = node;
+			node = node.next;
+			length++;
+		}
+		n = n % length;
+		if (n == 0)
+			return head;
+		node = head;
+		for (int i = 1; i < length - n; i++) {
+			node = node.next;
+		}
+		ListNode newHead = node.next;
+		node.next = null;
+		end.next = head;
+		return newHead;
+	}
+
+	public ListNode rotateRightII(ListNode head, int n) {
 		int length = 0;
 		ListNode newHead = null, prevNewHead = null, end = null;
 		for (ListNode node = head; node != null; node = node.next) {

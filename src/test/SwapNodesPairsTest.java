@@ -9,7 +9,7 @@ public class SwapNodesPairsTest {
 		ListNode head = node.createListNodes(x);
 
 		SwapNodesPairs test = new SwapNodesPairs();
-		ListNode newhead = test.swapPairs(head);
+		ListNode newhead = test.swapPairsII(head);
 
 		while (newhead.next != null) {
 			System.out.print(newhead.val);

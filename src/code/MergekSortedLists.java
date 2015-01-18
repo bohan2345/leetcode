@@ -1,6 +1,9 @@
 package code;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import test.ListNode;
 
@@ -55,4 +58,36 @@ public class MergekSortedLists {
 		}
 		return head;
 	}
+	
+    public ListNode mergeKListsII(List<ListNode> lists) {
+        Queue<ListNode> Q = new PriorityQueue<>(11, new NodeComparator());
+        for (int i = 0; i < lists.size(); i++) {
+            ListNode node = lists.get(i);
+            while (node != null) {
+                Q.offer(node);
+                ListNode tmp = node.next;
+                node.next = null;
+                node = tmp;
+            }
+        }
+        ListNode head = Q.poll();
+        ListNode node = head;
+        while (!Q.isEmpty()) {
+            node.next = Q.poll();
+            node = node.next;
+        }
+        return head;
+    }
+    
+    class NodeComparator implements Comparator<ListNode> {
+        @Override
+        public int compare(ListNode n1, ListNode n2) {
+            if (n1.val > n2.val)
+                return 1;
+            else if (n1.val < n2.val)
+                return -1;
+            else 
+                return 0;
+        }
+    }
 }

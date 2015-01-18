@@ -1,5 +1,9 @@
 package code;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+
 import test.TreeNode;
 
 public class RecoverBinarySearchTree {
@@ -35,5 +39,41 @@ public class RecoverBinarySearchTree {
 		}
 		tmp = root;
 		inorder(root.right, nodes);
+	}
+
+	public void recoverTreeII(TreeNode root) {
+		if (root == null)
+			return;
+		TreeNode[] pair = new TreeNode[2];
+		Stack<TreeNode> S = new Stack<>();
+		S.push(root);
+		Set<TreeNode> visited = new HashSet<>();
+		TreeNode last = new TreeNode(Integer.MIN_VALUE);
+		while (!S.isEmpty()) {
+			TreeNode node = S.pop();
+			if (visited.contains(node)) {
+				if (pair[1] != null) {
+					if (node.val < pair[1].val) {
+						pair[1] = node;
+					}
+				} else {
+					if (last.val > node.val) {
+						pair[0] = last;
+						pair[1] = node;
+					}
+					last = node;
+				}
+				continue;
+			}
+			visited.add(node);
+			if (node.right != null)
+				S.push(node.right);
+			S.push(node);
+			if (node.left != null)
+				S.push(node.left);
+		}
+		int tmp = pair[0].val;
+		pair[0].val = pair[1].val;
+		pair[1].val = tmp;
 	}
 }

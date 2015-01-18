@@ -10,11 +10,10 @@ public class CopyListwithRandomPointer {
 	class RandomListNode {
 		int label;
 		RandomListNode next, random;
-
 		RandomListNode(int x) {
 			this.label = x;
 		}
-	};
+	}
 
     public RandomListNode copyRandomList(RandomListNode head) {
         if (head == null)

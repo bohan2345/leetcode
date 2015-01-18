@@ -23,11 +23,13 @@ public class SortedListToBST {
 		if (left > right)
 			return null;
 		int mid = (left + right) / 2;
+		
 		TreeNode leftChild = build(left, mid - 1);
 		TreeNode root = new TreeNode(this.node.val);
-		root.left = leftChild;
 		this.node = this.node.next;
 		TreeNode rightChild = build(mid + 1, right);
+		
+		root.left = leftChild;
 		root.right = rightChild;
 		return root;
 	}

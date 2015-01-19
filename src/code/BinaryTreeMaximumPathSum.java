@@ -7,25 +7,17 @@ import test.TreeNode;
 
 public class BinaryTreeMaximumPathSum {
 	public int maxPathSum(TreeNode root) {
-        if (root == null) 
-            return 0;
-        List<Integer> max = new ArrayList<>();
-        max.add(root.val);
-        dfs(root, max);
-        return max.get(0);
-    }
-    
-    private int dfs(TreeNode root, List<Integer> max) {
-        if(root == null)
-            return 0;
-        int left = dfs(root.left, max);
-        int right = dfs(root.right, max);
-        left = Math.max(left, 0);
-        right = Math.max(right, 0);
-        if (max.get(0) < left + right + root.val) {
-            max.remove(0);
-            max.add(left + right + root.val);
-        }
-        return Math.max(left, right) + root.val;
-    }
+		int[] max = { root.val };
+		dfs(root, max);
+		return max[0];
+	}
+
+	int dfs(TreeNode root, int[] max) {
+		if (root == null)
+			return 0;
+		int left = Math.max(dfs(root.left, max), 0);
+		int right = Math.max(dfs(root.right, max), 0);
+		max[0] = Math.max(max[0], left + right + root.val);
+		return Math.max(left, right) + root.val;
+	}
 }

@@ -3,55 +3,49 @@ package code;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import test.inorderTraversalTest.TreeNode;
+import test.TreeNode;
 
 public class BalancedBinaryTree {
 	public boolean isBalanced(TreeNode root) {
 		if (root == null)
 			return true;
-		else if (root.left != null && root.right == null) {
-			if (maxDepth(root.left) > 1) {
-				return false;
-			} else {
-				return true;
-			}
-		} else if (root.right != null && root.left == null) {
-			if (maxDepth(root.right) > 1) {
-				return false;
-			} else {
-				return true;
-			}
-		} else{
-		   boolean x = (maxDepth(root.left)-maxDepth(root.right)<2)&&(maxDepth(root.left)-maxDepth(root.right)>-2);
-		   return x&&isBalanced(root.left)&&isBalanced(root.right);
-		}
-		
+		boolean x = isBalanced(root.left) && isBalanced(root.right);
+		return x && Math.abs(getHeight(root.left) - getHeight(root.right)) <= 1;
 	}
 
-	public int maxDepth(TreeNode root) {
+	int getHeight(TreeNode root) {
 		if (root == null)
 			return 0;
-		Queue<TreeNode> nodes = new LinkedList<TreeNode>();
-		int current = 0, next = 0, depth = 0;
-		nodes.add(root);
-		current++;
-		while (nodes.size() > 0) {
-			TreeNode node = nodes.poll();
-			current--;
+		Queue<TreeNode> Q = new LinkedList<>();
+		int height = 0, cur = 1, next = 0;
+		Q.offer(root);
+		while (!Q.isEmpty()) {
+			TreeNode node = Q.poll();
+			cur--;
 			if (node.left != null) {
-				nodes.add(node.left);
+				Q.offer(node.left);
 				next++;
 			}
 			if (node.right != null) {
-				nodes.add(node.right);
+				Q.offer(node.right);
 				next++;
 			}
-			if (current == 0) {
-				current = next;
+			if (cur == 0) {
+				height++;
+				cur = next;
 				next = 0;
-				depth++;
 			}
 		}
-		return depth;
+		return height;
+	}
+
+	public static void main(String[] args) {
+		TreeNode root = new TreeNode(1);
+		TreeNode a = new TreeNode(2);
+		TreeNode b = new TreeNode(3);
+		root.right = a;
+		a.right = b;
+		boolean s = new BalancedBinaryTree().isBalanced(root);
+		System.out.println(s);
 	}
 }

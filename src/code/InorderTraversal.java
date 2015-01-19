@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-import test.inorderTraversalTest.TreeNode;
+import test.TreeNode;
 
 public class InorderTraversal {
 //	public List<Integer> inorderTraversal(TreeNode root) {

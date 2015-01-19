@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import test.inorderTraversalTest.TreeNode;
+import test.TreeNode;
 
 public class LevelOrderTraversalII {
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {

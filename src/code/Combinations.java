@@ -32,4 +32,24 @@ public class Combinations {
 		}
 		return combinations;
 	}
+
+	public List<List<Integer>> combineII(int n, int k) {
+		List<List<Integer>> res = new ArrayList<>();
+		dfs(n, 1, k, res, new ArrayList<Integer>());
+		return res;
+	}
+
+	void dfs(int n, int i, int k, List<List<Integer>> res, List<Integer> tmp) {
+		if (i > n && tmp.size() != k)
+			return;
+		if (tmp.size() == k) {
+			res.add(new ArrayList<Integer>(tmp));
+			return;
+		}
+		for (; i <= n; i++) {
+			tmp.add(i);
+			dfs(n, i + 1, k, res, tmp);
+			tmp.remove(tmp.size() - 1);
+		}
+	}
 }

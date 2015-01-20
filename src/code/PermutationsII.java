@@ -2,33 +2,32 @@ package code;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PermutationsII {
 	public List<List<Integer>> permuteUnique(int[] num) {
 		List<List<Integer>> res = new ArrayList<>();
-		if (num.length == 0)
-			return res;
-		boolean[] visited = new boolean[num.length];
 		Arrays.sort(num);
-		dfs(num, visited, new ArrayList<Integer>(), res);
+		dfs(num, new HashSet<Integer>(), res, new ArrayList<Integer>());
 		return res;
 	}
 
-	public void dfs(int[] num, boolean[] visited, List<Integer> tmp, List<List<Integer>> res) {
-		if (tmp.size() == num.length) {
-			res.add(new ArrayList<>(tmp));
+	void dfs(int[] num, Set<Integer> used, List<List<Integer>> res, List<Integer> tmp) {
+		if (used.size() == num.length) {
+			res.add(new ArrayList<Integer>(tmp));
 			return;
 		}
 		for (int i = 0; i < num.length; i++) {
-			if (!visited[i]) {
-				if (i > 0 && num[i] == num[i - 1] && !visited[i - 1])
-					continue;
+			if (!used.contains(i)) {
 				tmp.add(num[i]);
-				visited[i] = true;
-				dfs(num, visited, tmp, res);
-				visited[i] = false;
+				used.add(i);
+				dfs(num, used, res, tmp);
 				tmp.remove(tmp.size() - 1);
+				used.remove(i);
+				while (i + 1 < num.length && num[i] == num[i + 1])
+					i++;
 			}
 		}
 	}

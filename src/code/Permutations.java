@@ -1,7 +1,7 @@
 package code;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,29 +28,24 @@ public class Permutations {
 	}
 
 	public List<List<Integer>> permuteII(int[] num) {
-		List<List<Integer>> results = new ArrayList<List<Integer>>();
-		List<Integer> temp = new ArrayList<Integer>();
-		Set<Integer> visited = new LinkedHashSet<Integer>();
-		dfs(num, results, temp, visited);
-		return results;
-	}
-
-	public void dfs(int[] num, List<List<Integer>> results, List<Integer> temp, Set<Integer> visited) {
-		if (visited.size() == num.length) {
-			List<Integer> p = new ArrayList<Integer>(temp);
-			results.add(p);
-			return;
-		}
-		for (int i = 0; i < num.length; i++) {
-			if (visited.contains(num[i])) {
-				continue;
-			}
-			temp.add(num[i]);
-			visited.add(num[i]);
-			dfs(num, results, temp, visited);
-			temp.remove(temp.size() - 1);
-			visited.remove(num[i]);
-		}
-		return;
-	}
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(num, new HashSet<Integer>(), res, new ArrayList<Integer>());
+        return res;
+    }
+    
+    void dfs(int[] num, Set<Integer> used, List<List<Integer>> res, List<Integer> tmp) {
+        if (used.size() == num.length) {
+            res.add(new ArrayList<Integer>(tmp));
+            return;
+        }
+        for (int i = 0; i < num.length; i++) {
+            if (!used.contains(i)) {
+                tmp.add(num[i]);
+                used.add(i);
+                dfs(num, used, res, tmp);
+                tmp.remove(tmp.size() - 1);
+                used.remove(i);
+            }
+        }
+    }
 }

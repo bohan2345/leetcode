@@ -13,7 +13,7 @@ public class NQueenTest {
 		// System.out.println(board[i]);
 		// }
 
-		List<String[]> s = test.solveNQueens(7);
+		List<String[]> s = test.solveNQueens(4);
 		for (int i = 0; i < s.size(); i++) {
 			String[] ss = s.get(i);
 			for (int j = 0; j < ss.length; j++)
@@ -31,6 +31,6 @@ public class NQueenTest {
 		// boolean x = test.listContains(L, board4);
 		// System.out.println(x);
 
-		System.out.println(test.totalNQueens(8));
+		System.out.println(test.totalNQueens(4));
 	}
 }

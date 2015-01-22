@@ -9,162 +9,50 @@ public class NQueen {
 	}
 
 	public List<String[]> solveNQueens(int n) {
-		List<String[]> result = new ArrayList<>();
-		String[] board = new String[n];
-		for (int i = 0; i < board.length; i++) {
-			StringBuffer sb = new StringBuffer();
-			for (int j = 0; j < n; j++) {
-				sb.append('0');
-			}
-			board[i] = sb.toString();
-		}
-		result.add(board);
-		return bfs(result, n);
-	}
-
-	public List<String[]> bfs(List<String[]> result, int N) {
-		List<List<String[]>> results = new ArrayList<List<String[]>>();
-		results.add(result);
-		int x = 0;
-		while (x < N) {
-			List<String[]> newResult = new ArrayList<>();
-			for (int n = 0; n < results.get(x).size(); n++) {
-				String[] board = results.get(x).get(n);
-				for (int i = 0; i < board.length; i++) {
-					if (board[x].charAt(i) == '0') {
-						String[] temp = board.clone();
-						boolean f = placeQueen(temp, i, x, temp.length);
-						if (f) {
-							newResult.add(temp);
-						}
-					}
-				}
-			}
-			x++;
-			results.add(newResult);
-		}
-		return results.get(x);
-	}
-
-	public boolean placeQueen(String[] board, int col, int row, int n) {
-		// column: check is there another queen on this column, set other cell to '.'
-		for (int i = 0; i < n; i++) {
-			StringBuffer sb = new StringBuffer(board[row]);
-			if (i == col) {
-				sb.setCharAt(col, 'Q');
-				board[row] = sb.toString();
-				continue;
-			}
-			if (board[row].charAt(i) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(i, '.');
-			board[row] = sb.toString();
-		}
-		// row
-		for (int i = 0; i < n; i++) {
-			StringBuffer sb = new StringBuffer(board[i]);
-			if (i == row) {
-				sb.setCharAt(col, 'Q');
-				board[i] = sb.toString();
-				continue;
-			}
-			if (board[i].charAt(col) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(col, '.');
-			board[i] = sb.toString();
-		}
-		// \
-		int i = row, j = col;
-		while (true) {
-			if (i >= n || j >= n) {
-				break;
-			}
-			StringBuffer sb = new StringBuffer(board[i]);
-			if (i == row && j == col) {
-				sb.setCharAt(j, 'Q');
-				board[i] = sb.toString();
-				i++;
-				j++;
-				continue;
-			}
-			if (board[i].charAt(j) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(j, '.');
-			board[i] = sb.toString();
-			i++;
-			j++;
-		}
-		// \
-		i = row;
-		j = col;
-		while (true) {
-			if (i < 0 || j < 0) {
-				break;
-			}
-			StringBuffer sb = new StringBuffer(board[i]);
-			if (i == row && j == col) {
-				sb.setCharAt(j, 'Q');
-				board[i] = sb.toString();
-				i--;
-				j--;
-				continue;
-			}
-			if (board[i].charAt(j) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(j, '.');
-			board[i] = sb.toString();
-			i--;
-			j--;
-		}
-		// /
-		i = row;
-		j = col;
-		while (true) {
-			if (i < 0 || j >= n) {
-				break;
-			}
-			StringBuffer sb = new StringBuffer(board[i]);
-			if (i == row && j == col) {
-				sb.setCharAt(j, 'Q');
-				board[i] = sb.toString();
-				i--;
-				j++;
-				continue;
-			}
-			if (board[i].charAt(j) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(j, '.');
-			board[i] = sb.toString();
-			i--;
-			j++;
-		}
-		i = row;
-		j = col;
-		while (true) {
-			if (i >= n || j < 0) {
-				break;
-			}
-			StringBuffer sb = new StringBuffer(board[i]);
-			if (i == row && j == col) {
-				sb.setCharAt(j, 'Q');
-				board[i] = sb.toString();
-				i++;
-				j--;
-				continue;
-			}
-			if (board[i].charAt(j) == 'Q') {
-				return false;
-			}
-			sb.setCharAt(j, '.');
-			board[i] = sb.toString();
-			i++;
-			j--;
-		}
-		return true;
-	}
+        List<String[]> res = new ArrayList<>();
+        solve(n, 0, new int[n], res);
+        return res;
+    }
+    
+    void solve(int n, int row, int[] pos, List<String[]> res) {
+        if (row == n) {
+            res.add(build(pos));
+            return;
+        }
+        for (int i = 1; i <= n; i++) {
+            if (isValid(row, i, n, pos)) {
+                pos[row] = i;
+                solve(n, row + 1, pos, res);
+                pos[row] = 0;
+            }
+        }
+    }
+    
+    boolean isValid(int row, int col, int n, int[] pos) {
+        for (int i = 0; i < n; i++) {
+        	if (pos[i] == 0)
+        		continue;
+            if (pos[i] == col)
+                return false;
+            int d = Math.abs(row - i);
+            if (pos[i] == col - d || pos[i] == col + d)
+                return false;
+        }
+        return true;
+    }
+    
+    String[] build(int[] pos) {
+        String[] table = new String[pos.length];
+        for (int i = 0; i < pos.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < pos.length; j++) {
+                if (pos[i] == j + 1)
+                    sb.append('Q');
+                else
+                    sb.append('.');
+            }
+            table[i] = sb.toString(); 
+        }
+        return table;
+    }
 }

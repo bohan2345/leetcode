@@ -12,12 +12,16 @@ public class CloneGraph {
 	/**
 	 * Definition for undirected graph.
 	 */
-	  class UndirectedGraphNode {
-	      int label;
-	      List<UndirectedGraphNode> neighbors;
-	      UndirectedGraphNode(int x) { label = x; neighbors = new ArrayList<UndirectedGraphNode>(); }
-	  };
-	 
+	class UndirectedGraphNode {
+		int label;
+		List<UndirectedGraphNode> neighbors;
+
+		UndirectedGraphNode(int x) {
+			label = x;
+			neighbors = new ArrayList<UndirectedGraphNode>();
+		}
+	};
+
 	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
 		if (node == null)
 			return null;
@@ -30,7 +34,7 @@ public class CloneGraph {
 		while (!S.isEmpty()) {
 			UndirectedGraphNode n = S.pop();
 			if (visited.contains(n)) {
-			    continue;
+				continue;
 			}
 			visited.add(n);
 			UndirectedGraphNode nn = null;
@@ -52,6 +56,24 @@ public class CloneGraph {
 					nn.neighbors.add(newAdj);
 				}
 			}
+		}
+		return newNode;
+	}
+
+	Map<UndirectedGraphNode, UndirectedGraphNode> visited = new HashMap<>();
+
+	public UndirectedGraphNode cloneGraphII(UndirectedGraphNode node) {
+		if (node == null) {
+			return null;
+		}
+		if (visited.containsKey(node)) {
+			return visited.get(node);
+		}
+		UndirectedGraphNode newNode = new UndirectedGraphNode(node.label);
+		visited.put(node, newNode);
+		List<UndirectedGraphNode> nodes = node.neighbors;
+		for (UndirectedGraphNode n : nodes) {
+			newNode.neighbors.add(cloneGraph(n));
 		}
 		return newNode;
 	}

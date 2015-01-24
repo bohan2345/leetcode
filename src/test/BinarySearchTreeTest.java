@@ -16,5 +16,9 @@ public class BinarySearchTreeTest {
 		test.delete(1);
 		TreeNode min = test.getMin(node);
 		System.out.println(min.val);
+		
+		
+//		BSTIterator i1 = test.iterater();
+//		BSTIterator i2 = test.iterater();
 	}
 }

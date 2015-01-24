@@ -46,10 +46,10 @@ public class BinarySearchTree {
 			return root;
 	}
 
-	public void delete(int i) {
+	public boolean delete(int i) {
 		TreeNode node = find(i);
 		if (node == null)
-			return;
+			return false;
 		TreeNode parent = getParent(node);
 		if (node.left == null && node.right == null) {
 			if (node.equals(parent.left)) {
@@ -78,6 +78,7 @@ public class BinarySearchTree {
 			min.val = tmp;
 			delete(min.val);
 		}
+		return true;
 	}
 
 	public TreeNode getMin(TreeNode root) {
@@ -104,5 +105,9 @@ public class BinarySearchTree {
 			}
 		}
 		return parent;
+	}
+
+	public BSTIterator iterater() {
+		return new BSTIterator(root);
 	}
 }

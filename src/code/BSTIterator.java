@@ -1,27 +1,23 @@
 package code;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 
 import test.TreeNode;
 
 public class BSTIterator {
 	private Stack<TreeNode> S;
-	private Set<TreeNode> visited;
+	private TreeNode root;
 
 	public BSTIterator(TreeNode root) {
 		this.S = new Stack<>();
-		this.visited = new HashSet<>();
-		if (root != null)
-			S.push(root);
+		this.root = root;
 	}
 
 	/** 
 	 * @return whether we have a next smallest number 
 	 * */
 	public boolean hasNext() {
-		return !S.isEmpty();
+		return !S.isEmpty() || root != null;
 	}
 
 	/** 
@@ -29,15 +25,15 @@ public class BSTIterator {
 	 * */
 	public int next() {
 		while (hasNext()) {
-			TreeNode node = S.pop();
-			if (visited.contains(node))
-				return node.val;
-			visited.add(node);
-			if (node.right != null)
-				S.push(node.right);
-			S.push(node);
-			if (node.left != null)
-				S.push(node.left);
+			if (root != null) {
+				S.push(root);
+				root = root.left;
+			} else {
+				root = S.pop();
+				int r = root.val;
+				root = root.right;
+				return r;
+			}
 		}
 		throw new RuntimeException("tree is empty");
 	}

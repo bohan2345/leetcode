@@ -7,7 +7,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BinaryTreeUtil {
-	public static TreeNode buildFromInOrder(char[] A) {
+	public static TreeNode buildFromPreOrder(char[] A) {
 		TreeNode root = new TreeNode(Character.getNumericValue(A[0]));
 		TreeNode last = root;
 		Stack<TreeNode> S = new Stack<>();
@@ -17,7 +17,7 @@ public class BinaryTreeUtil {
 				break;
 			last = last == null ? S.pop() : last;
 			if (A[i] != '#') {
-				TreeNode node = new TreeNode(Character.getNumericValue(A[0]));
+				TreeNode node = new TreeNode(Character.getNumericValue(A[i]));
 				if (!left) {
 					S.push(last);
 					last.left = node;
@@ -86,7 +86,7 @@ public class BinaryTreeUtil {
 				res.add(Integer.toString(node.val));
 				Q.offer(node.left);
 				Q.offer(node.right);
-			} else 
+			} else
 				res.add("#");
 		}
 		return res;

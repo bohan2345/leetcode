@@ -36,6 +36,18 @@ public class BinaryTreeUtil {
 		}
 		return root;
 	}
+	
+	TreeNode buildFromPreOrder(char[] A, int[] i) {
+		if (i[0] >= A.length || A[i[0]] == '#') {
+			i[0]++;
+			return null;
+		}
+		TreeNode root = new TreeNode(Character.getNumericValue(A[i[0]]));
+		i[0]++;
+		root.left = buildFromPreOrder(A, i);
+		root.right = buildFromPreOrder(A, i);
+		return root;
+	}
 
 	public static TreeNode buildFromLevelOrder(String[] A) {
 		TreeNode root = new TreeNode(Integer.valueOf(A[0]));
